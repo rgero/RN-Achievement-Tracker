@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { DarkModeProvider } from './src/context/DarkModeContext';
+import LandingScreen from './src/screens/LandingScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <DarkModeProvider>
+      <NavigationContainer
+          documentTitle={{
+          formatter: (options, route) => 
+            "Achievement Tracker"
+        }}
+      >
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="Landing"
+        >
+          <Stack.Screen name="Landing" component={LandingScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </DarkModeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
